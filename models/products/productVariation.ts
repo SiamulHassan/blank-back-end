@@ -26,11 +26,11 @@ const variationSchema = new Schema({
 });
 
 // Before saving, convert string numbers to actual numbers
-variationSchema.pre('save', function (next) {
-	if (typeof this.price === 'string') this.price = Number(this.price);
-	if (typeof this.cost === 'string') this.cost = Number(this.cost);
-	if (typeof this.stock === 'string') this.stock = Number(this.stock);
-	next();
-});
+// variationSchema.pre('save', function (next) {
+// 	if (typeof this.price === 'string') this.price = Number(this.price);
+// 	if (typeof this.cost === 'string') this.cost = Number(this.cost);
+// 	if (typeof this.stock === 'string') this.stock = Number(this.stock);
+// 	next();
+// });
 
 export default variationSchema;
