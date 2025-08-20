@@ -42,6 +42,13 @@ export { default as adminSettings } from './admin/admin.settings.js';
 export { default as Permission } from './permissions/model.js';
 export { default as permissionsSettings } from './permissions/settings.js';
 export { default as permissionConfig } from './permissions/config.js';
+////////////////////////////////////// new
+
+// banner
+export { default as Banner } from './banners/model.js';
+export { settings as bannerSettings } from './banners/model.js';
+export { default as bannerConfig } from './banners/config.js';
+
 //Views
 export { default as View } from './views/model.js';
 export { viewSettings } from './views/settings.js';
