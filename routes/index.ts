@@ -41,8 +41,11 @@ import {
 	Employee,
 	employeeSettings,
 	employeeConfig,
+	Product,
+	productSettings,
+	productConfig,
 } from '../imports.js';
-
+import productRoute from './products.route.js';
 import authRouter from '../routes-admin/auth/auth.admin.route.js';
 import commonRouter from './common/router.js';
 import uploadRoute from './upload.route.js';
@@ -53,11 +56,15 @@ const router = express.Router();
 
 router.use('/upload', uploadRoute);
 router.get('/model/:id/:type', getModelKeys);
+// router.get('/model/:id/:type', getModelKeys);
 
 router.get('/sidebar/:platform/:type', adminProtect, getAdminSidebar());
+// router.get('/sidebar/:platform/:type', adminProtect, getAdminSidebar());
 router.use('/auth', authRouter);
 router.get('/permissionlist', getAdminPermissionList());
-
+// router.use('/brands', brandRoute);
+// router.use('/categories', categoryRoute);
+// router.use('/products', productRoute);
 router.use(
 	'/users',
 	commonRouter({
@@ -66,6 +73,26 @@ router.use(
 		permission: 'user',
 	})
 );
+// old route
+router.use('/products', productRoute);
+// router.use(
+// 	'/products',
+// 	commonRouter({
+// 		Model: Product,
+// 		settings: productSettings,
+// 		frontendConfig: productConfig,
+// 		permission: 'user',
+// 	})
+// );
+// router.use(
+// 	'/products/create',
+// 	commonRouter({
+// 		Model: Product,
+// 		settings: productSettings,
+// 		frontendConfig: productConfig,
+// 		permission: 'user',
+// 	})
+// );
 
 router.use(
 	'/employees',

@@ -10,22 +10,22 @@ const settings: any = {
 		unique: true,
 	},
 
-	inventory: {
-		type: 'array-object',
-		title: 'Inventory',
-		edit: true,
-		sort: true,
-		filter: {
-			name: 'location',
-			field: 'location_in',
-			type: 'multi-select',
-			label: 'Location',
-			title: 'Sort by Location',
-			category: 'model',
-			model: Location,
-			key: 'name',
-		},
-	},
+	// inventory: {
+	// 	type: 'array-object',
+	// 	title: 'Inventory',
+	// 	edit: true,
+	// 	sort: true,
+	// 	filter: {
+	// 		name: 'location',
+	// 		field: 'location_in',
+	// 		type: 'multi-select',
+	// 		label: 'Location',
+	// 		title: 'Sort by Location',
+	// 		category: 'model',
+	// 		model: Location,
+	// 		key: 'name',
+	// 	},
+	// },
 
 	description: {
 		type: 'string',

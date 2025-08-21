@@ -35,7 +35,6 @@ const schema = new Schema<any>(
 		// 	required: true,
 		// },
 		collection: [{ type: Schema.Types.ObjectId, ref: 'Collection' }],
-		
 		brand: {
 			type: Schema.Types.ObjectId,
 			ref: 'Brand',
@@ -123,30 +122,34 @@ const schema = new Schema<any>(
 			type: Boolean,
 			default: true,
 		},
-		inventory: [
-			{
-				location: {
-					type: Schema.Types.ObjectId,
-					ref: 'Location',
-				},
-				stock: {
-					type: Number,
-					default: 0,
-				},
-				damage: {
-					type: Number,
-					default: 0,
-				},
-				reservedStock: {
-					type: Number,
-					default: 0,
-				},
-				incomingStock: {
-					type: Number,
-					default: 0,
-				},
-			},
-		],
+		// inventory: [
+		// 	{
+		// 		location: {
+		// 			type: Schema.Types.ObjectId,
+		// 			ref: 'Location',
+		// 		},
+		// 		location: {
+		// 			type: Schema.Types.ObjectId,
+		// 			ref: 'Location',
+		// 		},
+		// 		stock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		damage: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		reservedStock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		incomingStock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 	},
+		// ],
 		metaKeywords: [String],
 		metaImage: String,
 		meta: {

@@ -31,6 +31,14 @@ export { default as Member } from './member/model.js';
 export { settings as memberSettings } from './member/model.js';
 export { default as membersConfig } from './member/config.js';
 
+// Product
+//Product
+export { ProductType } from './products/products.types.js';
+export { default as Product } from './products/products.model.js';
+export { settings as productSettings } from './products/products.model.js';
+export { default as productConfig } from './products/config.js';
+export { default as inventorySettings } from './products/inventory.settings.js';
+
 //Admin Role & User
 export { default as Admin } from './admin/admin.model.js';
 export { default as AdminRole } from './admin/adminRole.model.js';

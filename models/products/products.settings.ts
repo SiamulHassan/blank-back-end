@@ -58,6 +58,16 @@ const settings: any = {
 		title: 'Variations',
 		edit: true,
 	},
+	discountTiers:{
+		type: 'array-object',
+		title: 'Discount Tiers',
+		edit: true,
+	},
+	// variations: {
+	// 	type: 'array-object',
+	// 	title: 'Variations',
+	// 	edit: true,
+	// },
 	// shop: {
 	// 	type: 'string',
 	// 	title: 'Shop',
@@ -80,54 +90,54 @@ const settings: any = {
 	// 	},
 	// },
 
-	inventory: {
-		type: 'array-object',
-		title: 'Inventory',
-		edit: true,
-		sort: true,
-	},
+	// inventory: {
+	// 	type: 'array-object',
+	// 	title: 'Inventory',
+	// 	edit: true,
+	// 	sort: true,
+	// },
 
-	'inventory.location': {
-		type: 'string',
-		populate: {
-			path: 'inventory.location',
-			select: 'name',
-		},
-		title: 'Location',
-		edit: true,
-		sort: true,
+	// 'inventory.location': {
+	// 	type: 'string',
+	// 	populate: {
+	// 		path: 'inventory.location',
+	// 		select: 'name',
+	// 	},
+	// 	title: 'Location',
+	// 	edit: true,
+	// 	sort: true,
 
-		filter: {
-			name: 'inventory.location',
-			field: 'inventory.location_in',
-			roles: ['pos'],
-			type: 'multi-select',
-			label: 'Location',
-			title: 'Sort by location',
-			category: 'model',
-			model: Location,
-			key: 'name',
-		},
-	},
+	// 	filter: {
+	// 		name: 'inventory.location',
+	// 		field: 'inventory.location_in',
+	// 		roles: ['pos'],
+	// 		type: 'multi-select',
+	// 		label: 'Location',
+	// 		title: 'Sort by location',
+	// 		category: 'model',
+	// 		model: Location,
+	// 		key: 'name',
+	// 	},
+	// },
 
-	collection: {
-		sort: true,
-		edit: true,
-		title: 'Collection',
-		type: 'array-string',
+	// collection: {
+	// 	sort: true,
+	// 	edit: true,
+	// 	title: 'Collection',
+	// 	type: 'array-string',
 
-		filter: {
-			name: 'collection',
-			field: 'collection_in',
-			type: 'multi-select',
-			label: 'Collection',
-			title: 'Sort by collection',
-			options: [],
-			category: 'model',
-			model: Collection,
-			key: 'name',
-		},
-	},
+	// 	filter: {
+	// 		name: 'collection',
+	// 		field: 'collection_in',
+	// 		type: 'multi-select',
+	// 		label: 'Collection',
+	// 		title: 'Sort by collection',
+	// 		options: [],
+	// 		category: 'model',
+	// 		model: Collection,
+	// 		key: 'name',
+	// 	},
+	// },
 	category: {
 		edit: true,
 		sort: true,
@@ -196,30 +206,30 @@ const settings: any = {
 		title: 'Custom Attributes',
 		edit: true,
 	},
-	customSections: {
-		type: 'array-object',
-		title: 'Custom Attributes',
-		edit: true,
-	},
+	// customSections: {
+	// 	type: 'array-object',
+	// 	title: 'Custom Attributes',
+	// 	edit: true,
+	// },
 	faq: {
 		type: 'array-object',
 		title: 'Custom Attributes',
 		edit: true,
 	},
 
-	allowStock: {
-		type: 'boolean',
-		title: 'Allow Stock',
-		edit: true,
-		sort: true,
-		filter: {
-			name: 'Allow Stock',
-			field: 'allowStock',
-			type: 'boolean',
-			label: 'Allow Stock',
-			title: 'Sort by allow stock',
-		},
-	},
+	// allowStock: {
+	// 	type: 'boolean',
+	// 	title: 'Allow Stock',
+	// 	edit: true,
+	// 	sort: true,
+	// 	filter: {
+	// 		name: 'Allow Stock',
+	// 		field: 'allowStock',
+	// 		type: 'boolean',
+	// 		label: 'Allow Stock',
+	// 		title: 'Sort by allow stock',
+	// 	},
+	// },
 
 	stock: {
 		type: 'number',
@@ -277,6 +287,7 @@ const settings: any = {
 			title: 'Sort by price',
 		},
 	},
+	
 	isActive: {
 		type: 'boolean',
 		edit: true,
