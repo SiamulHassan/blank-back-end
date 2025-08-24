@@ -14,9 +14,9 @@ export { settings as roleSettings } from './role/role.model.js';
 //Counter
 export { default as Counter } from './counter/counter.model.js';
 
-//Contacts
-// export { default as Supplier } from './customer/supplier.model.js';
-// export { supplierSettings } from './customer/supplier.model.js';
+// Category
+export { default as Category } from './category/category.model.js';
+export { default as categorySettings } from './category/category.settings.js';
 //Pages
 export { default as Page } from './pages/model.js';
 export { default as pageSettings } from './pages/settings.js';
@@ -30,6 +30,13 @@ export { default as employeeConfig } from './employee/config.js';
 export { default as Member } from './member/model.js';
 export { settings as memberSettings } from './member/model.js';
 export { default as membersConfig } from './member/config.js';
+
+//Product
+export { ProductType } from './products/products.types.js';
+export { default as Product } from './products/products.modelv2.js';
+export { settings as productSettings } from './products/products.modelv2.js';
+export { default as productConfig } from './products/config.js';
+export { default as inventorySettings } from './products/inventory.settings.js';
 
 //Admin Role & User
 export { default as Admin } from './admin/admin.model.js';
@@ -48,6 +55,10 @@ export { default as permissionConfig } from './permissions/config.js';
 export { default as Banner } from './banners/model.js';
 export { settings as bannerSettings } from './banners/model.js';
 export { default as bannerConfig } from './banners/config.js';
+// warehouse
+export { default as Warehouse } from './products/warehouse/model.js';
+export { settings as warehouseSettings } from './products/warehouse/model.js';
+export { default as warehouseConfig } from './products/warehouse/config.js';
 
 //Views
 export { default as View } from './views/model.js';

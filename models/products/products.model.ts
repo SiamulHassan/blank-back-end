@@ -1,156 +1,234 @@
 import mongoose, { Schema } from 'mongoose';
-import variationSchema from './productVariation.js';
+import variationSchema from './variationSchema.js';
 
 
-// Discount tiers schema (for bulk warehouse discounts)
-const discountTierSchema = new Schema(
+const schema = new Schema<any>(
 	{
-		minQuantity: { type: Number, required: true }, // e.g., 100
+		name: { type: String, required: true },
+		shortDescription: {
+			type: String,
+			trim: true,
+		},
+		description: {
+			type: String,
+		},
+		isActive: { type: Boolean, required: true, default: true },
+
+		unit: {
+			type: String,
+		},
+		unitValue: {
+			type: Number,
+		},
+
+		image: {
+			type: String,
+		},
+		images: [String],
+		category: {
+			type: Schema.Types.ObjectId,
+			ref: 'Category',
+			required: true,
+		},
+		// shop: {
+		// 	type: Schema.Types.ObjectId,
+		// 	ref: 'Shop',
+		// 	required: true,
+		// },
+		collection: [{ type: Schema.Types.ObjectId, ref: 'Collection' }],
+		brand: {
+			type: Schema.Types.ObjectId,
+			ref: 'Brand',
+		},
+		isFeatured: { type: Boolean, default: false },
+		cost: {
+			type: Number,
+			default: 0,
+			required: true,
+		},
+		price: { type: Number, required: true },
+
+		isDiscount: { type: Boolean, default: false },
 		discountType: {
 			type: String,
 			enum: ['percentage', 'flat'],
-			default: 'percentage',
 		},
-		discountValue: { type: Number, required: true }, // e.g., 10% or 500 flat
-	},
-	{ _id: false }
-);
+		discount: {
+			type: Number,
+			default: 0,
+		},
 
-const productSchema = new Schema(
-	{
-		name: { type: String, required: true, trim: true },
-		shortDescription: { type: String, trim: true },
-		description: { type: String },
+		sku: {
+			type: String,
+			trim: true,
+		},
+		slug: {
+			type: String,
+			toLowerCase: true,
+			trim: true,
+		},
+		weight: {
+			type: Number,
+			default: 0, // Weight in grams or other units
+		},
+		dimensions: {
+			length: { type: Number, default: 0 }, // in cm
+			width: { type: Number, default: 0 }, // in cm
+			height: { type: Number, default: 0 }, // in cm
+		},
+		barcode: {
+			type: String,
+			trim: true,
+		},
 
-		category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-		brand: { type: Schema.Types.ObjectId, ref: 'Brand' },
-
-		images: [String],
-		mainImage: String,
-
-		// Global stock for simple products (variations also have their own stock)
-		stock: { type: Number, default: 0, required: true },
-		damage: { type: Number, default: 0 },
-		lowStockAlert: { type: Number, default: 0 },
-
-		// Variations (each has own stock, price, cost, attributes)
-		variations: [variationSchema],
-
-		// Base pricing
-		costPrice: { type: Number, required: true, default: 0 }, // buying cost
-		sellingPrice: { type: Number, required: true }, // base selling price
-
-		// Bulk discounts
-		discountTiers: [discountTierSchema],
-
-		// SEO + Marketing
-		slug: { type: String, trim: true, lowercase: true },
 		tags: [String],
-		meta: {
-			title: String,
-			description: String,
-			keywords: [String],
-			image: String,
-		},
 
-		// Flags
-		isFeatured: { type: Boolean, default: false },
-		isVisible: { type: Boolean, default: true },
+		allowStock: { type: Boolean, default: true },
+		stock: { type: Number, default: 0, required: true },
+		damage: { type: Number, default: 0, required: true },
+		lowStockAlert: { type: Number, default: 0 },
+		variations: [{ type: variationSchema }],
+
 		status: {
 			type: String,
 			enum: ['draft', 'published', 'archived'],
 			default: 'draft',
 		},
 
-		// Extra / Flexible attributes
 		customAttributes: [
 			{
-				label: String,
-				value: String,
+				label: { type: String },
+				value: { type: String },
+			},
+		],
+		customSections: [
+			{
+				title: { type: String },
+				description: { type: String },
 			},
 		],
 
+		extraAttributes: { type: Schema.Types.Mixed },
+		discountedPrice: {
+			type: Number,
+		},
+
+		vat: {
+			type: Number,
+			required: true,
+			default: 0,
+		},
+
+		isVisible: {
+			type: Boolean,
+			default: true,
+		},
+		// inventory: [
+		// 	{
+		// 		location: {
+		// 			type: Schema.Types.ObjectId,
+		// 			ref: 'Location',
+		// 		},
+		// 		location: {
+		// 			type: Schema.Types.ObjectId,
+		// 			ref: 'Location',
+		// 		},
+		// 		stock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		damage: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		reservedStock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		incomingStock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 	},
+		// ],
+		metaKeywords: [String],
+		metaImage: String,
+		meta: {
+			title: {
+				type: String,
+			},
+			description: {
+				type: String,
+			},
+			// keywords: [String],
+		},
 		faq: [
 			{
-				question: String,
-				answer: String,
+				title: { type: String },
+				description: { type: String },
 			},
 		],
-
-		vat: { type: Number, default: 0 },
 	},
+
 	{
 		timestamps: true,
-		toJSON: { virtuals: true },
-		toObject: { virtuals: true },
+		toJSON: { virtuals: true }, // Include this line to ensure virtuals are included when converting to JSON
+		toObject: { virtuals: true }, // Include this line to ensure virtuals are included when converting to objects
 	}
 );
 
-/* ===========================
-   🔹 Virtuals
-=========================== */
-
-// In stock check
-productSchema.virtual('inStock').get(function () {
-	return this.stock > 0 || this.variations.some((v: any) => v.stock > 0);
+// Add the 'inStock' virtual field
+schema.virtual('inStock').get(function (this: any) {
+	return this.stock > 0;
 });
 
-// Total stock (global + variations)
-productSchema.virtual('totalStock').get(function () {
-	let total = this.stock;
-	if (this.variations?.length) {
-		total += this.variations.reduce((sum: number, v: any) => sum + v.stock, 0);
-	}
-	return total;
+//Total Stock
+schema.virtual('totalStock').get(function (this: any) {
+	let totalStock = 0;
+	this.inventory?.forEach((inv: any) => {
+		totalStock += inv.stock;
+	});
+	return totalStock + this.stock;
 });
 
-// Inventory cost valuation
-productSchema.virtual('inventoryCostValue').get(function () {
-	let value = this.costPrice * this.stock;
-	if (this.variations?.length) {
-		value += this.variations.reduce(
-			(sum: number, v: any) => sum + (v.cost || this.costPrice) * v.stock,
-			0
-		);
-	}
-	return value;
+//Total Inventory Sell value
+schema.virtual('totalInventorySellValue').get(function (this: any) {
+	let totalValue = 0;
+	this.inventory?.forEach((inv: any) => {
+		totalValue += inv.stock * this.price;
+	});
+	return totalValue + this.stock * this.price;
 });
 
-// Inventory potential selling value
-productSchema.virtual('inventorySellValue').get(function () {
-	let value = this.sellingPrice * this.stock;
-	if (this.variations?.length) {
-		value += this.variations.reduce(
-			(sum: number, v: any) => sum + (v.price || this.sellingPrice) * v.stock,
-			0
-		);
-	}
-	return value;
+//Total Inventory Sell value
+schema.virtual('stockInTransit').get(function (this: any) {
+	let totalValue = 0;
+	this.inventory?.forEach((inv: any) => {
+		totalValue += inv.incomingStock;
+	});
+	return totalValue;
 });
 
-/* ===========================
-   🔹 Middleware
-=========================== */
-
-// Slug middleware
-productSchema.pre('save', function (next) {
-	if (!this.slug && this.name) {
-		this.slug = this.name.toLowerCase().replace(/\s+/g, '-');
+// Pre-save middleware to set the slug field
+schema.pre('save', function (next) {
+	if (!this.slug) {
+		if (!this.name) return;
+		this.slug = (this.name as any).toLowerCase().replace(/\s+/g, '-');
 	}
-
-	// Cast string numbers in variations (since variationSchema pre('save') won’t fire for subdocs)
-	if (this.variations?.length) {
-		this.variations.forEach((v: any) => {
-			if (typeof v.price === 'string') v.price = Number(v.price);
-			if (typeof v.cost === 'string') v.cost = Number(v.cost);
-			if (typeof v.stock === 'string') v.stock = Number(v.stock);
-		});
-	}
-
 	next();
 });
 
-const Product = mongoose.model('Product', productSchema);
+// Define the virtual property
+schema.virtual('inventoryCostPrice').get(function (this: any) {
+	return this.price * this.stock;
+});
+
+// Define the virtual property
+schema.virtual('inventorySellPrice').get(function (this: any) {
+	return this.price * this.stock;
+});
+
+const Product = mongoose.model<any>('Product', schema);
 export default Product;
 
 export { default as settings } from './products.settings.js';
