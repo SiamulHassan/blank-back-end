@@ -19,11 +19,11 @@ import {
 } from '../../controllers/index.js';
 
 import {
-	protect,
+	adminProtect as protect,
 	validate,
 	paginate,
 	filter,
-	hasPermission,
+	adminPermissions as hasPermission,
 	ifExists,
 	isExpired,
 } from '../../middleware/index.js';

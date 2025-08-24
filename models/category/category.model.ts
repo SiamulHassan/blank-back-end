@@ -98,7 +98,7 @@ schema.pre('save', function (next) {
 	next();
 });
 
-const Session = mongoose.model<any>('Category', schema);
-export default Session;
+const Category = mongoose.model<any>('Category', schema);
+export default Category;
 
 // export { default as settings } from './category.settings.js';

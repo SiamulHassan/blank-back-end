@@ -38,6 +38,9 @@ import {
 	Member,
 	memberSettings,
 	membersConfig,
+	Warehouse,
+	warehouseSettings,
+	warehouseConfig,
 	Employee,
 	employeeSettings,
 	employeeConfig,
@@ -49,6 +52,7 @@ import productRoute from './products.route.js';
 import authRouter from '../routes-admin/auth/auth.admin.route.js';
 import commonRouter from './common/router.js';
 import uploadRoute from './upload.route.js';
+import categoryRoute from './categories.route.js'
 
 import express from 'express';
 
@@ -75,6 +79,8 @@ router.use(
 );
 // old route
 router.use('/products', productRoute);
+// category
+router.use('/categories', categoryRoute);
 // router.use(
 // 	'/products',
 // 	commonRouter({
@@ -95,12 +101,12 @@ router.use('/products', productRoute);
 // );
 
 router.use(
-	'/employees',
+	'/warehouse',
 	commonRouter({
-		Model: Employee,
-		settings: employeeSettings,
-		permission: 'employees',
-		frontendConfig: employeeConfig,
+		Model: Warehouse,
+		settings: warehouseSettings,
+		permission: 'warehouse',
+		frontendConfig: warehouseConfig,
 	})
 );
 router.use(

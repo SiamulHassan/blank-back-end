@@ -1,7 +1,7 @@
 // Import necessary modules from their respective files
 import express from 'express';
 
-import Product, { settings } from '../models/products/products.model.js';
+import Product, { settings } from '../models/products/products.modelv2.js';
 // import cancelOrder from '../controllers/order/cancelOrder.controller.js';
 // import topSellingProductController from '../controllers/top/topSellingProduct.controller.js';
 import { Filter } from '../lib/types/settings.types.js';

@@ -23,3 +23,4 @@ const schema = new Schema<any>(
 
 const Warehouse = mongoose.model<any>('Warehouse', schema);
 export default Warehouse;
+export { default as settings } from './settings.js';

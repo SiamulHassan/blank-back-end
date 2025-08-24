@@ -1,83 +1,179 @@
 import mongoose, { Schema } from 'mongoose';
-import variationSchema from './productVariation.js';
+import variationSchema from './variationSchema.js';
 
-const discountTierSchema = new Schema(
+
+const schema = new Schema<any>(
 	{
-		minQuantity: { type: Number, required: true }, // e.g., 100
+		name: { type: String, required: true },
+		shortDescription: {
+			type: String,
+			trim: true,
+		},
+		description: {
+			type: String,
+		},
+		isActive: { type: Boolean, required: true, default: true },
+
+		unit: {
+			type: String,
+		},
+		unitValue: {
+			type: Number,
+		},
+
+		image: {
+			type: String,
+		},
+		images: [String],
+		category: {
+			type: Schema.Types.ObjectId,
+			ref: 'Category',
+			required: true,
+		},
+		// shop: {
+		// 	type: Schema.Types.ObjectId,
+		// 	ref: 'Shop',
+		// 	required: true,
+		// },
+		collection: [{ type: Schema.Types.ObjectId, ref: 'Collection' }],
+		brand: {
+			type: Schema.Types.ObjectId,
+			ref: 'Brand',
+		},
+		isFeatured: { type: Boolean, default: false },
+		cost: {
+			type: Number,
+			default: 0,
+			required: true,
+		},
+		price: { type: Number, required: true },
+
+		isDiscount: { type: Boolean, default: false },
 		discountType: {
 			type: String,
 			enum: ['percentage', 'flat'],
-			default: 'percentage',
 		},
-		discountValue: { type: Number, required: true }, // e.g., 10% or 500 flat
-	},
-	{ _id: false }
-);
-const schema = new Schema<any>(
-	{
-		name: { type: String, required: true, trim: true },
-		shortDescription: { type: String, trim: true },
-		description: { type: String },
-		category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
-		brand: { type: Schema.Types.ObjectId, ref: 'Brand' },
-		images: [String],
-		image: String,
+		discount: {
+			type: Number,
+			default: 0,
+		},
 
-		// Global stock for simple products (when no variations exist)
-		stock: { type: Number, default: 0 },
-		damage: { type: Number, default: 0 },
-		lowStockAlert: { type: Number, default: 0 }, // 
+		sku: {
+			type: String,
+			trim: true,
+		},
+		slug: {
+			type: String,
+			toLowerCase: true,
+			trim: true,
+		},
+		weight: {
+			type: Number,
+			default: 0, // Weight in grams or other units
+		},
+		dimensions: {
+			length: { type: Number, default: 0 }, // in cm
+			width: { type: Number, default: 0 }, // in cm
+			height: { type: Number, default: 0 }, // in cm
+		},
+		barcode: {
+			type: String,
+			trim: true,
+		},
 
-		// Product variations with warehouse inventory
-		variations: [variationSchema],
-
-		// Base pricing
-		cost: { type: Number, required: true, default: 0 }, // costPrice - buying cost
-		price: { type: Number, required: true }, // base selling price
-
-		// Bulk discounts
-		discountTiers: [discountTierSchema], // n
-
-		// SEO + Marketing
-		slug: { type: String, trim: true, lowercase: true },
 		tags: [String],
-		meta: {
-			title: String,
-			description: String,
-			keywords: [String],
-			image: String,
-		},
-		metaKeywords: [String],
-		metaImage: String,
-		// Flags
-		isFeatured: { type: Boolean, default: false },
-		isVisible: { type: Boolean, default: true },
+
+		allowStock: { type: Boolean, default: true },
+		stock: { type: Number, default: 0, required: true },
+		damage: { type: Number, default: 0, required: true },
+		lowStockAlert: { type: Number, default: 0 },
+		variations: [{ type: variationSchema }],
+
 		status: {
 			type: String,
 			enum: ['draft', 'published', 'archived'],
 			default: 'draft',
 		},
 
-		// Extra / Flexible attributes
 		customAttributes: [
 			{
-				label: String,
-				value: String,
+				label: { type: String },
+				value: { type: String },
 			},
 		],
+		customSections: [
+			{
+				title: { type: String },
+				description: { type: String },
+			},
+		],
+
+		extraAttributes: { type: Schema.Types.Mixed },
+		discountedPrice: {
+			type: Number,
+		},
+
+		vat: {
+			type: Number,
+			required: true,
+			default: 0,
+		},
+
+		isVisible: {
+			type: Boolean,
+			default: true,
+		},
+		// inventory: [
+		// 	{
+		// 		location: {
+		// 			type: Schema.Types.ObjectId,
+		// 			ref: 'Location',
+		// 		},
+		// 		location: {
+		// 			type: Schema.Types.ObjectId,
+		// 			ref: 'Location',
+		// 		},
+		// 		stock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		damage: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		reservedStock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 		incomingStock: {
+		// 			type: Number,
+		// 			default: 0,
+		// 		},
+		// 	},
+		// ],
+		metaKeywords: [String],
+		metaImage: String,
+		meta: {
+			title: {
+				type: String,
+			},
+			description: {
+				type: String,
+			},
+			// keywords: [String],
+		},
 		faq: [
 			{
-				question: String,
-				answer: String,
+				title: { type: String },
+				description: { type: String },
 			},
 		],
-		vat: { type: Number, default: 0 },
-		isDeleted: { type: Boolean },
 	},
+
 	{
 		timestamps: true,
-		toJSON: { virtuals: true },
-		toObject: { virtuals: true },
+		toJSON: { virtuals: true }, // Include this line to ensure virtuals are included when converting to JSON
+		toObject: { virtuals: true }, // Include this line to ensure virtuals are included when converting to objects
 	}
 );
 
