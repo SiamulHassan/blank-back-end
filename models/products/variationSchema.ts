@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import warehouseInventorySchema from './inventorySchema';
+import warehouseInventorySchema from './warehouseInventorySchema.js';
 
 const variationSchema = new Schema(
 	{
@@ -23,12 +23,12 @@ const variationSchema = new Schema(
 
 		// Additional fields for better inventory management
 		weight: { type: Number }, // for shipping calculations
-		dimensions: {
-			length: Number,
-			width: Number,
-			height: Number,
-			unit: { type: String, default: 'cm' },
-		},
+		// dimensions: {
+		// 	length: Number,
+		// 	width: Number,
+		// 	height: Number,
+		// 	unit: { type: String, default: 'cm' },
+		// },
 	},
 	{
 		_id: true,
