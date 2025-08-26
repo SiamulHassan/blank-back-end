@@ -1,7 +1,7 @@
 import { populate } from 'dotenv';
 import { Customer } from '../../imports.js';
 // import { Customer, Location } from '../../imports.js';
-import Product from '../products/products.modelv2.js';
+import Product from '../products/products.model.js';
 import User from '../user/user.model.js';
 
 ////import Category from './category.model.js';
